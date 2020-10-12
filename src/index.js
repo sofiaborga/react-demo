@@ -20,11 +20,10 @@ class UserCardBody extends React.Component {
 
     return (
       <div>
-        Currently pursuing {company.catchPhrase} <br></br>
+        <u>Currently pursuing:</u> {company.catchPhrase} <br></br>
         <b>@{company.name}</b> - <em>{company.bs}</em>
       </div>
     );
-    
   }
 }
 
@@ -35,12 +34,40 @@ class UserCard extends React.Component  {
 
     return (
       <div>
-        <UserCardHeader user={user} />,
+        <UserCardHeader user={user} />
         <UserCardBody company={company} />
-      </div>
-      
-
+      </div> 
      )
+  }
+}
+
+class UserTable extends React.Component {
+  
+  renderCards () {
+    return  this.props.users.map(function(user) {
+      return (
+        <tr key={"user-" + user.id}>
+          <td>
+            <UserCard user={user} />
+          </td>
+        </tr>
+      )
+    })
+  }
+
+  render () {
+    return (
+      <table>
+        <thead>
+          <th>
+            Users
+          </th>
+        </thead>
+        <tbody>
+          {this.renderCards()}
+        </tbody>
+      </table>
+    )
   }
 }
 
@@ -95,6 +122,6 @@ const USERS = [
 
 
 ReactDOM.render(
-    <UserCard user={USERS[0]}/>,
+    <UserTable users={USERS}/>,
     document.getElementById('root')
   );
