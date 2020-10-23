@@ -71,6 +71,28 @@ class UserTable extends React.Component {
   }
 }
 
+class SearchBar extends React.Component {
+  render() {
+    return (
+      <form>
+        <input type="text" placeholder="Search user..." />
+        <input type="button" value="Show All"/>
+      </form>
+    );
+  }
+}
+
+class FilterableUserTable extends React.Component {
+  render() {
+    return (
+      <div>
+        <SearchBar />
+        <UserTable users={this.props.users} />
+      </div>
+    );
+  }
+}
+
 const USERS = [
     {
       "id": 1,
@@ -122,6 +144,6 @@ const USERS = [
 
 
 ReactDOM.render(
-    <UserTable users={USERS}/>,
+    <FilterableUserTable users={USERS}/>,
     document.getElementById('root')
   );
