@@ -41,21 +41,40 @@ class UserCard extends React.Component  {
   }
 }
 
-class UserTable extends React.Component {
-  
-  renderCards () {
-    return  this.props.users.map(function(user) {
-      return (
-        <tr key={"user-" + user.id}>
-          <td>
-            <UserCard user={user} />
-          </td>
-        </tr>
-      )
-    })
-  }
+class UserRow extends React.Component {
+  render() {
+    const user = this.props.user;
 
+    return (
+      <tr key={"user-" + user.id}>
+        <td>
+          <UserCard user={user} />
+        </td>
+      </tr>
+    )
+  }
+}
+
+class UserTable extends React.Component {
   render () {
+    const filterQuery = this.props.filterQuery;
+
+    const rows = []
+
+    this.props.users.forEach((user) => {
+      if (user.name.indexOf(filterQuery) === -1) {
+        if (user.username.indexOf(filterQuery) === -1){
+          return;
+        }
+      }
+
+      rows.push(
+        <UserRow
+          user={user}
+        />
+      )
+    });
+
     return (
       <table>
         <thead>
@@ -64,7 +83,7 @@ class UserTable extends React.Component {
           </th>
         </thead>
         <tbody>
-          {this.renderCards()}
+          {rows}
         </tbody>
       </table>
     )
@@ -72,22 +91,43 @@ class UserTable extends React.Component {
 }
 
 class SearchBar extends React.Component {
-  render() {
+  render() {  
+    const filterQuery = this.props.filterQuery;
+
     return (
       <form>
-        <input type="text" placeholder="Search user..." />
-        <input type="button" value="Show All"/>
+        <input 
+          type="text" 
+          placeholder="Search user..."
+          value={filterQuery} 
+        />
+        <input 
+          type="button" 
+          value="Show All"
+        />
       </form>
     );
   }
 }
 
 class FilterableUserTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterQuery: '',
+    };
+  }
+  
   render() {
     return (
       <div>
-        <SearchBar />
-        <UserTable users={this.props.users} />
+        <SearchBar 
+          filterQuery={this.state.filterQuery}
+        />
+        <UserTable 
+          users={this.props.users}
+          filterQuery={this.state.filterQuery}
+        />
       </div>
     );
   }
