@@ -109,10 +109,6 @@ class SearchBar extends React.Component {
           value={this.props.filterQuery}
           onChange={this.handleFilterQueryChange}
         />
-        <input 
-          type="button" 
-          value="Show All"
-        />
       </form>
     );
   }
@@ -122,7 +118,7 @@ class FilterableUserTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterQuery: '',
+      filterQuery: ''
     };
 
     this.handleFilterQueryChange = this.handleFilterQueryChange.bind(this);
