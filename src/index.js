@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.sass';
+import './index.scss';
 
 class UserCardHeader extends React.Component  {
   render () {
@@ -102,13 +102,19 @@ class SearchBar extends React.Component {
   
   render() {  
     return (
-      <form>
-        <input 
-          type="text" 
-          placeholder="Search user..."
-          value={this.props.filterQuery}
-          onChange={this.handleFilterQueryChange}
-        />
+      <form class="p-5">
+        <div class="control has-icons-left">
+          <input 
+            class="input is-primary is-rounded has-icons-left"
+            type="text" 
+            placeholder="Search user..."
+            value={this.props.filterQuery}
+            onChange={this.handleFilterQueryChange}
+          />
+          <span class="icon is-left">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
       </form>
     );
   }
