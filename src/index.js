@@ -91,15 +91,23 @@ class UserTable extends React.Component {
 }
 
 class SearchBar extends React.Component {
-  render() {  
-    const filterQuery = this.props.filterQuery;
+  constructor(props) {
+    super(props);
+    this.handleFilterQueryChange = this.handleFilterQueryChange.bind(this);
+  }
 
+  handleFilterQueryChange(e) {
+    this.props.onFilterQueryChange(e.target.value);
+  }
+  
+  render() {  
     return (
       <form>
         <input 
           type="text" 
           placeholder="Search user..."
-          value={filterQuery} 
+          value={this.props.filterQuery}
+          onChange={this.handleFilterQueryChange}
         />
         <input 
           type="button" 
@@ -116,6 +124,14 @@ class FilterableUserTable extends React.Component {
     this.state = {
       filterQuery: '',
     };
+
+    this.handleFilterQueryChange = this.handleFilterQueryChange.bind(this);
+  }
+
+  handleFilterQueryChange(filterQuery) {
+    this.setState({
+      filterQuery: filterQuery
+    });
   }
   
   render() {
@@ -123,6 +139,7 @@ class FilterableUserTable extends React.Component {
       <div>
         <SearchBar 
           filterQuery={this.state.filterQuery}
+          onFilterQueryChange={this.handleFilterQueryChange}
         />
         <UserTable 
           users={this.props.users}
