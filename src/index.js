@@ -7,9 +7,9 @@ class UserCardHeader extends React.Component  {
     const user = this.props.user;
 
     return (
-      <h3>
-        <b>{user.name}</b> aka. <code>{user.username}</code>
-      </h3>
+      <div class="card-header">
+        <p class="card-header-title">{user.name} ({user.username})</p> 
+      </div>
     );
   }
 }
@@ -19,7 +19,7 @@ class UserCardBody extends React.Component {
     const company = this.props.company;
 
     return (
-      <div>
+      <div class="card-content">
         <u>Currently pursuing:</u> {company.catchPhrase} <br></br>
         <b>@{company.name}</b> - <em>{company.bs}</em>
       </div>
@@ -33,7 +33,7 @@ class UserCard extends React.Component  {
     const company = this.props.user.company;
 
     return (
-      <div>
+      <div class="card">
         <UserCardHeader user={user} />
         <UserCardBody company={company} />
       </div> 
@@ -76,7 +76,7 @@ class UserTable extends React.Component {
     });
 
     return (
-      <table>
+      <table class="table">
         <thead>
           <th>
             Users
@@ -138,7 +138,7 @@ class FilterableUserTable extends React.Component {
   
   render() {
     return (
-      <div>
+      <div class="p-5">
         <SearchBar 
           filterQuery={this.state.filterQuery}
           onFilterQueryChange={this.handleFilterQueryChange}
